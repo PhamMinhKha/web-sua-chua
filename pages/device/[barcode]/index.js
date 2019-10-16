@@ -5,10 +5,13 @@ export default function index() {
   const router = useRouter();
   const barcode = router.query.barcode;
   db.collection("device")
-    .where("barcode", ">=", 0)
+    .where("email", "==", 'admin@shopbentre.com')
     .get()
-    .then(value => console.log(value));
+    .then(querySnapshot =>{
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+    });
 
-  console.log(db);
   return <div>da vao {barcode}</div>;
 }
