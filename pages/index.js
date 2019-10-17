@@ -32,6 +32,7 @@ const Home = () => {
       <Nav />
 
       <div className="hero">
+        <Link href='/device/barcode'>Device</Link>
         <input
           placeholder="Nhập mã thiết bị"
           value={barcode}
