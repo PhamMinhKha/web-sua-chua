@@ -1,152 +1,136 @@
-import React from "react";
+import React, { useState } from "react";
+import "./../../components/layouts/css/timelinecss.css";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 export default function timeline(child) {
-    
-  return (
-    <div>
-    
-      <body>
-        <div className="container">
-          {child}
-          <ul>
-            <li>
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [IMAGES, setIMAGES] = useState([]);
+  function hinh(hinh) {
+    if (hinh.length > 0) {
+      let tmp = [];
+      let tmp2 = [];
+      for (let n of hinh) {
+        let link =
+          "https://firebasestorage.googleapis.com/v0/b/suachuabaohanh-b99ee.appspot.com/o/thumb%2F" +
+          n.id +
+          "?alt=media";
+        let link2 =
+          "https://firebasestorage.googleapis.com/v0/b/suachuabaohanh-b99ee.appspot.com/o/" +
+          n.id +
+          "?alt=media";
+        tmp2.push(link2);
+        tmp.push(
+          <img
+            onClick={() => setIsOpen(true)}
+            src={link}
+            key={n.id}
+            style={{
+              borderWidth: 2,
+              borderColor: "white",
+              marginLeft: 5,
+              marginRight: 5
+            }}
+          />
+        );
+      }
+      handleOnlickImage(tmp2);
+      return tmp;
+    }
+  }
+  function timeline() {
+    console.log("vao function", console.log(child));
+    let html = [];
+    if (child.timeline)
+      for (let n of child.timeline) {
+        let backgroundColor = "rgba(255, 255, 255, 0.2)";
+        switch (n.status) {
+          case 0:
+            backgroundColor = "rgba(230, 55, 125, 0.2)";
+            break;
+          case 1:
+            backgroundColor = "rgba(235, 235, 52, 0.2)";
+            break;
+          case 2:
+            backgroundColor = "rgba(52, 135, 235, 0.2)";
+            break;
+          case 3:
+            backgroundColor = "rgba(0, 255, 0, 0.2)";
+            break;
+        }
+        let tam = null;
+        if (n.status === 0)
+          tam = (
+            <li style={{ backgroundColor, display: "table" }} key={n.time}>
               <span></span>
               <div>
-                <div className="title">Codify</div>
-                <div className="info">Let&apos;s make coolest things in css</div>
-                <div className="type">Presentation</div>
+                <div className="title">{n.check}</div>
+                <div className="info">Phụ kiện: {n.phukienkemtheo}</div>
+                <div className="type">Trạng thái: {n.tinhtrangthietbi}</div>
+                <div style={{ float: "left" }}>{hinh(n.hinh)}</div>
               </div>{" "}
               <span className="number">
-                <span>10:00</span> <span>12:00</span>
+                <span>{n.time}</span> <span></span>
               </span>
             </li>
-            <li>
+          );
+        else if (n.status === 3)
+          // sửa thành công
+          tam = (
+            <li style={{ backgroundColor }} key={n.time}>
+              <span></span>
               <div>
-                <span></span>
-                <div className="title">Codify</div>
-                <div className="info">
-                  Let&apos;s make coolest things in javascript
+                <div className="title">Thực hiện: {n.check}</div>
+                <div className="info">Kết quả: {n.result}</div>
+                <div className="type">
+                  Bảo hành:{" "}
+                  {n.baohanh > 0 ? n.baohanh + "ngày" : "Không bảo hành"}{" "}
                 </div>
-                <div className="type">Presentation</div>
+                <div style={{ float: "left" }}>{hinh(n.hinh)}</div>
               </div>{" "}
               <span className="number">
-                <span>13:00</span> <span>14:00</span>
+                <span>{n.time}</span> <span></span>
               </span>
             </li>
-            <li>
+          );
+        else
+          tam = (
+            <li style={{ backgroundColor }} key={n.time}>
+              <span></span>
               <div>
-                <span></span>
-                <div className="title">Codify</div>
-                <div className="info">Let&apos;s make coolest things in css</div>
-                <div className="type">Review</div>
+                <div className="title">Thực hiện: {n.check}</div>
+                <div className="info">Kết quả: {n.result}</div>
+                <div style={{ float: "left" }}>{hinh(n.hinh)}</div>
               </div>{" "}
               <span className="number">
-                <span>15:00</span> <span>17:45</span>
+                <span>{n.time}</span> <span></span>
               </span>
             </li>
-          </ul>
-        </div>
-      </body>
-      <style jsx>{`
-  @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-  body {
-    height: 100vh;
-    font-family: "Open Sans", sans-serif;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bea2e7+0,86b7e7+100 */
-    background: #bea2e7;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, #bea2e7 0%, #86b7e7 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #bea2e7 0%, #86b7e7 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #bea2e7 0%, #86b7e7 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bea2e7', endColorstr='#86b7e7',GradientType=0 );
-    /* IE6-9 */
+          );
+        html.push(tam);
+      }
+    return html;
   }
-
-  .container ul {
-    margin: 0;
-    margin-top: 100px;
-    list-style: none;
-    position: relative;
-    padding: 1px 100px;
-    color: #fff;
-    font-size: 13px;
+  function handleOnlickImage(hinh) {
+    if (IMAGES.length === 0) setIMAGES(hinh);
   }
-  .container ul:before {
-    content: "";
-    width: 1px;
-    height: 100%;
-    position: absolute;
-    border-left: 2px dashed #fff;
-  }
-  .container ul li {
-    position: relative;
-    margin-left: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 14px;
-    border-radius: 6px;
-    width: 250px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.08);
-  }
-  .container ul li:not(:first-child) {
-    margin-top: 60px;
-  }
-  .container ul li > span {
-    width: 2px;
-    height: 100%;
-    background: #fff;
-    left: -30px;
-    top: 0;
-    position: absolute;
-  }
-  .container ul li > span:before,
-  .container ul li > span:after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    position: absolute;
-    background: #86b7e7;
-    left: -5px;
-    top: 0;
-  }
-  .container ul li span:after {
-    top: 100%;
-  }
-  .container ul li > div {
-    margin-left: 10px;
-  }
-  .container div .title,
-  .container div .type {
-    font-weight: 600;
-    font-size: 12px;
-  }
-  .container div .info {
-    font-weight: 300;
-  }
-  .container div > div {
-    margin-top: 5px;
-  }
-  .container span.number {
-    height: 100%;
-  }
-  .container span.number span {
-    position: absolute;
-    font-size: 10px;
-    left: -35px;
-    font-weight: bold;
-  }
-  .container span.number span:first-child {
-    top: 0;
-  }
-  .container span.number span:last-child {
-    top: 100%;
-  }
-`}</style>
-      </div>
+  return (
+    <div className="container">
+      <ul>{timeline()}</ul>
+      {isOpen && (
+        <Lightbox
+          mainSrc={IMAGES[photoIndex]}
+          nextSrc={IMAGES[(photoIndex + 1) % IMAGES.length]}
+          prevSrc={IMAGES[(photoIndex + IMAGES.length - 1) % IMAGES.length]}
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + IMAGES.length - 1) % IMAGES.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % IMAGES.length)
+          }
+        />
+      )}
+    </div>
   );
 }
-
-

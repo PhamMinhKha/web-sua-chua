@@ -32,7 +32,7 @@ const Home = () => {
       <Nav />
 
       <div className="hero">
-        <Link href='/device/barcode'>Device</Link>
+        <Link href='/device/barcode'><a>Device</a></Link>
         <input
           placeholder="Nhập mã thiết bị"
           value={barcode}
