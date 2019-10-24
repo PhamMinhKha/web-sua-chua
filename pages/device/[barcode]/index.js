@@ -5,25 +5,35 @@ import timelinelayout from "./../../../components/layouts/timeline";
 import Searchdevice from "./../../../components/searchdevice";
 export default function index() {
   const router = useRouter();
-  // const barcode = router.query.barcode;
-  const barcode = "5108595502";
+  // const barcode = ;
+  // const barcode = "5108595502";
   const [device, setdevice] = useState();
+  const [barcode, setbarcode] = useState(router.query.barcode);
+  const [loading, setloading] = useState('none');
   useEffect(() => {
+    if(barcode)
     getData();
   }, []);
-  function getData() {
-    if (barcode)
+  function getData(barcode2) {
+    let checkbarcode = '';
+    if(barcode2) checkbarcode = barcode2;
+    else checkbarcode = barcode;
+    if (checkbarcode)
+   { setloading('block');
+   console.log(checkbarcode, 'xxx');
       db.collection("device")
-        .doc(barcode)
+        .doc(checkbarcode)
         .get()
         .then(value => {
           if (value.exists) {
             console.log(value.data());
             setdevice(value.data());
+            setloading('none');
           } else {
             alert("Rất tiết nhưng không tìm thấy thiết bị này");
+            setloading('none');
           }
-        });
+        });}
   }
 
   function hienThiThietBi() {
@@ -37,6 +47,7 @@ export default function index() {
             padding: 15
           }}
         >
+         
           <p className="text"> Barcode: {device.barcode}</p>
           <p className="text">{device.tenkhach}</p>
           <p className="text">SĐT: {device.sodienthoai}</p>
@@ -57,9 +68,17 @@ export default function index() {
       );
     }
   }
+  function getBarcode(barcode){
+setbarcode(barcode);
+console.log('test', barcode);
+if(barcode.length >=10){
+  getData(barcode);
+}
+  }
   return (
     <div>
-      <Searchdevice />
+      <div style={{width:'100%', height:'100%', position:'fixed', backgroundColor:'black', opacity:0.5, display:loading}}> Loading</div>
+      <Searchdevice barcode={getBarcode}/>
       {hienThiThietBi()}
       {timelinelayout({ timeline: device ? device.timeline : null })}
     </div>
