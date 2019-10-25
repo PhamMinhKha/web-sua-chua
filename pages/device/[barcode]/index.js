@@ -8,12 +8,21 @@ export default function index() {
   // const barcode = ;
   // const barcode = "5108595502";
   const [device, setdevice] = useState();
-  const [barcode, setbarcode] = useState(router.query.barcode);
+ 
+  const [barcode, setbarcode] = useState(null);
   const [loading, setloading] = useState('none');
   useEffect(() => {
     if(barcode)
     getData();
   }, []);
+  // while(!router.query.barcode){
+  //   setbarcode(router.query.barcode)
+  // }
+  if(barcode === null){
+    setbarcode(router.query.barcode);
+  }
+  // console.log(router.query)
+  // setbarcode(router.query.barcode);
   function getData(barcode2) {
     let checkbarcode = '';
     if(barcode2) checkbarcode = barcode2;
