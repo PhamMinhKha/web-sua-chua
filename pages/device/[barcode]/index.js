@@ -20,6 +20,7 @@ export default function index() {
   // }
   if(barcode === null){
     setbarcode(router.query.barcode);
+    getData();
   }
   console.log(router.query)
   // setbarcode(router.query.barcode);
