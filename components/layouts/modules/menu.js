@@ -11,7 +11,7 @@ export default function menu() {
     <div>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -20,8 +20,11 @@ export default function menu() {
           </IconButton>
           <Typography variant="h6" >
             News
-          </Typography>
-          <Button color="secondary">Trang chủ</Button>
+          </Typography> */}
+          {/* <Button color="secondary">Trang chủ</Button> */}
+          <Button color="secondary"><a href='#chucnang' style={{color:'white', textDecoration:'none'}}>Chức năng</a></Button>
+          <Button color="secondary"><a href='#taive' style={{color:'white', textDecoration:'none'}}>Tải về</a></Button>
+          <Button color="secondary"><a href='#lienhe' style={{color:'white', textDecoration:'none'}}>Liên hệ</a></Button>
        
         </Toolbar>
       </AppBar>

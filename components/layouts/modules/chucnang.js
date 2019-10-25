@@ -8,7 +8,8 @@ import css from "./../../../public/css/style.css";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   mauchuchin: {
-    color: "#35D944"
+    color: "#35D944",
+    textAlign:'center'
   },
   wrapperChucNang: {
     padding: 12
@@ -17,9 +18,9 @@ const useStyles = makeStyles(theme => ({
 export default function chucnang() {
   const classes = useStyles();
   return (
-    <Grid container spacing={10}>
+    <Grid container spacing={10} style={{marginTop:'-20%'}} alignContent='center' alignItems='center'>
       <Grid item xs={12}>
-        <Typography variant="h3" align="center" className={classes.mauchuchin}>
+        <Typography variant="h3" className={classes.mauchuchin} id='chucnang'>
           Chức năng
         </Typography>
       </Grid>
