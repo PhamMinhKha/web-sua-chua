@@ -1,45 +1,28 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Link from "@material-ui/core/Link";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
-  }
-}));
-
 export default function menu() {
-  const classes = useStyles();
   return (
     <div>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
-            className={classes.menuButton}
             color="inherit"
             aria-label="menu"
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" >
             News
           </Typography>
           <Button color="secondary">Trang chủ</Button>
-          <Button color="inherit">Chức năng</Button>
-          <Button color="inherit">Tải về</Button>
-          <Button color="inherit">Liên hệ</Button>
+       
         </Toolbar>
       </AppBar>
     </div>

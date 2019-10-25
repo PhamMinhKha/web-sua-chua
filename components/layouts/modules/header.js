@@ -1,7 +1,10 @@
 import React from "react";
 import Head from 'next/head';
-import './../../../public/css/style.css'
+import css from './../../../public/css/style.css'
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(theme => css);
 export default function Header() {
+  const classes = useStyles();
   return (
     <Head>
       <title>My page title</title>
