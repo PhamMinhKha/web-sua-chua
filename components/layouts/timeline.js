@@ -22,7 +22,7 @@ export default function timeline(child) {
         tmp2.push(link2);
         tmp.push(
           <img
-            onClick={() => setIsOpen(true)}
+            onClick={() => {setIsOpen(true); handleOnlickImage(tmp2);}}
             src={link}
             key={n.id}
             style={{
@@ -34,7 +34,7 @@ export default function timeline(child) {
           />
         );
       }
-      handleOnlickImage(tmp2);
+      // handleOnlickImage(tmp2);
       return tmp;
     }
   }
@@ -77,7 +77,7 @@ export default function timeline(child) {
         else if (n.status === 3)
           // sửa thành công
           tam = (
-            <li style={{ backgroundColor }} key={n.time}>
+            <li style={{ backgroundColor, display: "table"  }} key={n.time}>
               <span></span>
               <div>
                 <div className="title">Thực hiện: {n.check}</div>
@@ -95,7 +95,7 @@ export default function timeline(child) {
           );
         else
           tam = (
-            <li style={{ backgroundColor }} key={n.time}>
+            <li style={{ backgroundColor, display: "table"  }} key={n.time}>
               <span></span>
               <div>
                 <div className="title">Thực hiện: {n.check}</div>
@@ -112,7 +112,7 @@ export default function timeline(child) {
     return html;
   }
   function handleOnlickImage(hinh) {
-    if (IMAGES.length === 0) setIMAGES(hinh);
+    setIMAGES(hinh);
   }
   return (
     <div className="container">
