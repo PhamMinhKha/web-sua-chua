@@ -21,7 +21,7 @@ export default function index() {
   if(barcode === null){
     setbarcode(router.query.barcode);
   }
-  // console.log(router.query)
+  console.log(router.query)
   // setbarcode(router.query.barcode);
   function getData(barcode2) {
     let checkbarcode = '';
