@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter, Router } from "next/router";
 import db from "../../../API/connectAPI";
 import timelinelayout from "./../../../components/layouts/timeline";
 import Searchdevice from "./../../../components/searchdevice";
@@ -8,29 +8,30 @@ export default function index() {
   // const barcode = ;
   // const barcode = "5108595502";
   const [device, setdevice] = useState();
- 
-  const [barcode, setbarcode] = useState(null);
-  const [loading, setloading] = useState('none');
+
+  const [barcode, setbarcode] = useState(router.query.barcode);
+  const [loading, setloading] = useState("none");
   useEffect(() => {
-    if(barcode)
-    getData();
-  }, []);
+    barcode;
+    getData(router.query.barcode);
+  }, [barcode]);
   // while(!router.query.barcode){
   //   setbarcode(router.query.barcode)
   // }
-  if(barcode === null){
+  if (barcode === null) {
+    // console.log('vao roi', router.query.barcode)
     setbarcode(router.query.barcode);
-    getData();
+    getData(router.query.barcode);
   }
-  console.log(router.query)
+  // console.log(router.query)
   // setbarcode(router.query.barcode);
   function getData(barcode2) {
-    let checkbarcode = '';
-    if(barcode2) checkbarcode = barcode2;
+    let checkbarcode = "";
+    if (barcode2) checkbarcode = barcode2;
     else checkbarcode = barcode;
-    if (checkbarcode)
-   { setloading('block');
-   console.log(checkbarcode, 'xxx');
+    if (checkbarcode) {
+      setloading("block");
+      //  console.log(checkbarcode, 'xxx');
       db.collection("device")
         .doc(checkbarcode)
         .get()
@@ -38,12 +39,13 @@ export default function index() {
           if (value.exists) {
             console.log(value.data());
             setdevice(value.data());
-            setloading('none');
+            setloading("none");
           } else {
             alert("Rất tiết nhưng không tìm thấy thiết bị này");
-            setloading('none');
+            setloading("none");
           }
-        });}
+        });
+    }
   }
 
   function hienThiThietBi() {
@@ -57,7 +59,6 @@ export default function index() {
             padding: 15
           }}
         >
-         
           <p className="text"> Barcode: {device.barcode}</p>
           <p className="text">{device.tenkhach}</p>
           <p className="text">SĐT: {device.sodienthoai}</p>
@@ -78,17 +79,39 @@ export default function index() {
       );
     }
   }
-  function getBarcode(barcode){
-setbarcode(barcode);
-console.log('test', barcode);
-if(barcode.length >=10){
-  getData(barcode);
-}
+  function getBarcode(barcode) {
+    setbarcode(barcode);
+    console.log("test", barcode);
+    if (barcode.length >= 10) {
+      getData(barcode);
+      clearInterval();
+    }
   }
+if(router.query.barcode && barcode !== router.query.barcode )
+{
+  setTimeout(() => getBarcode(router.query.barcode), 2000)
+}
+  console.log("test", router.query.barcode);
+
   return (
     <div>
-      <div style={{width:'100%', height:'100%', position:'fixed', backgroundColor:'black', opacity:0.5, display:loading}}> Loading</div>
-      <Searchdevice barcode={getBarcode}/>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "fixed",
+          backgroundColor: "black",
+          opacity: 0.5,
+          display: loading
+        }}
+      >
+        {" "}
+        Loading
+      </div>
+      <Searchdevice
+        barcode={getBarcode}
+        barcodeFromRouter={router.query.barcode}
+      />
       {hienThiThietBi()}
       {timelinelayout({ timeline: device ? device.timeline : null })}
     </div>
