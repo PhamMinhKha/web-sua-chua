@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./../../components/layouts/css/timelinecss.css";
 import Lightbox from "react-image-lightbox";
+import Head from 'next/head';
 import "react-image-lightbox/style.css";
 export default function timeline(child) {
   const [photoIndex, setPhotoIndex] = useState(0);

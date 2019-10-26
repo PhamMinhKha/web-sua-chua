@@ -3,6 +3,8 @@ import { useRouter, Router } from "next/router";
 import db from "../../../API/connectAPI";
 import timelinelayout from "./../../../components/layouts/timeline";
 import Searchdevice from "./../../../components/searchdevice";
+// import Header from "./../../../components/layouts/modules/header";
+import Header from "next/head";
 export default function index() {
   const router = useRouter();
   // const barcode = ;
@@ -95,6 +97,11 @@ if(router.query.barcode && barcode !== router.query.barcode )
 
   return (
     <div>
+      {/* <Header/> */}
+      <Header>
+        <title>Tìm thiết bị sửa chữa</title>
+        <link rel="stylesheet" type="text/css" href="/css/timelinecss.css" />
+      </Header>
       <div
         style={{
           width: "100%",
